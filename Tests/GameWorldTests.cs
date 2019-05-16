@@ -59,7 +59,7 @@ namespace ConsoleApplication1.Tests
             var world = GetTestingWorld();
             world.Ball.Speed = new Vector() {X = 1, Y = 1};
             var previousPosition = world.Ball.Position;
-            world.OnTick();
+            world.Tick();
             Assert.AreEqual(Point.Add(previousPosition, new Size(1, 1)), world.Ball.Position);
         }
 
@@ -68,7 +68,7 @@ namespace ConsoleApplication1.Tests
         {
             var world = GetTestingWorld();
             world.Ball.Speed.X = 5;
-            world.OnTick();
+            world.Tick();
             Assert.AreEqual(-5, world.Ball.Speed.X);
         }
 
@@ -77,7 +77,7 @@ namespace ConsoleApplication1.Tests
         {
             var world = GetTestingWorld();
             world.Ball.Speed.X = -5;
-            world.OnTick();
+            world.Tick();
             Assert.AreEqual(5, world.Ball.Speed.X);
         }
 
@@ -88,7 +88,7 @@ namespace ConsoleApplication1.Tests
             world.Bricks = new HashSet<Brick>();
             world.Ball.Speed.Y = -5;
             world.Ball.Position = new Point(20, 20);
-            world.OnTick();
+            world.Tick();
             Assert.AreEqual(5, world.Ball.Speed.Y);
         }
 
@@ -98,7 +98,7 @@ namespace ConsoleApplication1.Tests
             var world = GetTestingWorld();
             world.Ball.Speed.Y = 1;
             world.Ball.Position = new Point(20, 42);
-            world.OnTick();
+            world.Tick();
             Assert.AreEqual(-1, world.Ball.Speed.Y);
         }
 
@@ -113,13 +113,13 @@ namespace ConsoleApplication1.Tests
             bool failureEventFired = false;
             world.Failure += (sender, args) => { failureEventFired = true; };
 
-            world.OnTick();
+            world.Tick();
             Assert.IsTrue(failureEventFired);
             Assert.IsTrue(world.Ball.IsLost);
             Assert.AreEqual(new Point(20, 45), world.Ball.Position);
 
             failureEventFired = false;
-            world.OnTick();
+            world.Tick();
             Assert.IsFalse(failureEventFired);
             Assert.AreEqual(new Point(20, 46), world.Ball.Position);
         }
@@ -134,7 +134,7 @@ namespace ConsoleApplication1.Tests
             Brick destroyedBrick = null;
             world.BrickDestroy += (sender, args) => { destroyedBrick = args.Brick; };
 
-            world.OnTick();
+            world.Tick();
             Assert.AreEqual(world.Bricks.First(), destroyedBrick);
             Assert.IsTrue(destroyedBrick.IsDestroyed);
             Assert.AreEqual(1, world.Ball.Speed.Y);

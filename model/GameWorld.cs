@@ -53,7 +53,7 @@ namespace ConsoleApplication1.model
 
         public event FailureEventHandler Failure;
 
-        public void OnTick()
+        public void Tick()
         {
             Ball.Position = new Point(
                 Ball.Position.X + Ball.Speed.X,

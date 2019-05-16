@@ -19,7 +19,7 @@ namespace ConsoleApplication1
             timer.Interval = 50;
             timer.Tick += (sender, args) =>
             {
-                gameWorld.OnTick();
+                gameWorld.Tick();
                 Invalidate();
             };
             timer.Start();
