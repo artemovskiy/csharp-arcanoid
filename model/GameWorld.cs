@@ -35,7 +35,7 @@ namespace ConsoleApplication1.model
 
     public class GameWorld
     {
-        public Size FieldSize { get; set; }
+        public Entity Field { get; set; }
 
         public Ball Ball { get; set; }
 

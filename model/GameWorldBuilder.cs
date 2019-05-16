@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Drawing;
-
 using ConsoleApplication1.model.entities;
 
 namespace ConsoleApplication1.model
@@ -18,41 +17,44 @@ namespace ConsoleApplication1.model
 
         public void BuildField(Size fieldSize)
         {
-            world.FieldSize = fieldSize;
+            world.Field = new Entity(
+                new Point(WALL_WIDTH + fieldSize.Width / 2, WALL_WIDTH + fieldSize.Height / 2),
+                fieldSize
+            );
         }
 
         public void BuildWalls()
         {
-            var sideWallsSize = new Size(WALL_WIDTH, world.FieldSize.Height + WALL_WIDTH * 2);
+            var sideWallsSize = new Size(WALL_WIDTH, world.Field.Size.Height + WALL_WIDTH * 2);
 
             world.LeftWall = new Entity(
                 new Point(WALL_WIDTH / 2, sideWallsSize.Height / 2),
                 sideWallsSize
             );
             world.RightWall = new Entity(
-                new Point(world.FieldSize.Width + WALL_WIDTH + WALL_WIDTH / 2, sideWallsSize.Height / 2),
+                new Point(world.Field.Size.Width + WALL_WIDTH + WALL_WIDTH / 2, sideWallsSize.Height / 2),
                 sideWallsSize
             );
 
             world.TopWall = new Entity(
                 new Point(GetFieldCenter().X, WALL_WIDTH / 2),
-                new Size(world.FieldSize.Width, WALL_WIDTH)
+                new Size(world.Field.Size.Width, WALL_WIDTH)
             );
         }
 
         private Point GetFieldCenter()
         {
             return new Point(
-                WALL_WIDTH + world.FieldSize.Width / 2,
-                world.FieldSize.Height / 2 + WALL_WIDTH
+                WALL_WIDTH + world.Field.Size.Width / 2,
+                world.Field.Size.Height / 2 + WALL_WIDTH
             );
         }
 
         public void BuildVoid()
         {
             world.BottomVoid = new Entity(
-                new Point(GetFieldCenter().X, world.FieldSize.Height + WALL_WIDTH + WALL_WIDTH / 2),
-                new Size(world.FieldSize.Width, WALL_WIDTH)
+                new Point(GetFieldCenter().X, world.Field.Size.Height + WALL_WIDTH + WALL_WIDTH / 2),
+                new Size(world.Field.Size.Width, WALL_WIDTH)
             );
         }
 
@@ -92,7 +94,7 @@ namespace ConsoleApplication1.model
         public void BuildPaddle()
         {
             world.Paddle = new Entity(
-                new Point(GetFieldCenter().X, world.FieldSize.Height - WALL_WIDTH),
+                new Point(GetFieldCenter().X, world.Field.Size.Height - WALL_WIDTH),
                 new Size(30, WALL_WIDTH)
             );
         }
