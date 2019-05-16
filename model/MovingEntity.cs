@@ -14,7 +14,7 @@ namespace ConsoleApplication1.model
         public Vector Speed
         {
             get { return speed; }
-            private set { speed = value; }
+            set { speed = value; }
         }
     }
 }

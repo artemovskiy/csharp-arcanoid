@@ -110,9 +110,9 @@ namespace ConsoleApplication1.model
 
         public void MovePaddle(MoveDirections direction)
         {
-            if (direction == MoveDirections.Left && Paddle.Touches(LeftWall))
+            if (direction == MoveDirections.Left && Paddle.LeftX <= Field.LeftX)
                 return;
-            if (direction == MoveDirections.Right && Paddle.Touches(RightWall))
+            if (direction == MoveDirections.Right && Paddle.RightX >= Field.RightX)
                 return;
             Paddle.Position = Point.Add(Paddle.Position, new Size((direction == MoveDirections.Left ? -1 : 1) * 10, 0));
         }

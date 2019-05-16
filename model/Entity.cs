@@ -9,7 +9,7 @@ namespace ConsoleApplication1.model
         public Size Size
         {
             get { return size; }
-            private set { size = value; }
+            protected set { size = value; }
         }
 
         private Point position;
