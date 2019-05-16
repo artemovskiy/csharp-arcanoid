@@ -2,13 +2,14 @@
 using System.Windows.Forms;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Runtime.Remoting.Channels;
 using ConsoleApplication1.model;
 
 namespace ConsoleApplication1
 {
     class MyForm : Form
     {
-        public MyForm(GameState gameState)
+        public MyForm(GameWorld gameWorld)
         {
             DoubleBuffered = true;
 
@@ -18,7 +19,7 @@ namespace ConsoleApplication1
             timer.Interval = 50;
             timer.Tick += (sender, args) =>
             {
-                gameState.OnTick();
+                gameWorld.OnTick();
                 Invalidate();
             };
             timer.Start();
@@ -26,13 +27,13 @@ namespace ConsoleApplication1
             KeyDown += (sender, args) =>
             {
                 if (args.KeyCode == Keys.Left)
-                    gameState.MovePaddle(MoveDirections.Left);
+                    gameWorld.MovePaddle(MoveDirections.Left);
             };
 
             KeyDown += (sender, args) =>
             {
                 if (args.KeyCode == Keys.Right)
-                    gameState.MovePaddle(MoveDirections.Right);
+                    gameWorld.MovePaddle(MoveDirections.Right);
             };
 
             Paint += (sender, args) =>
@@ -47,23 +48,23 @@ namespace ConsoleApplication1
                     );
                 };
 
-                drawWall(gameState.RightWall);
-                drawWall(gameState.TopWall);
-                drawWall(gameState.LeftWall);
+                drawWall(gameWorld.RightWall);
+                drawWall(gameWorld.TopWall);
+                drawWall(gameWorld.LeftWall);
 
                 g.DrawRectangle(
                     new Pen(Color.Red),
-                    gameState.BottomVoid.GetRectangle()
+                    gameWorld.BottomVoid.GetRectangle()
                 );
 
-                g.DrawEllipse(new Pen(Color.Blue), gameState.Ball.GetRectangle());
+                g.DrawEllipse(new Pen(Color.Blue), gameWorld.Ball.GetRectangle());
 
                 g.DrawRectangle(
                     new Pen(Color.Green),
-                    gameState.Paddle.GetRectangle()
+                    gameWorld.Paddle.GetRectangle()
                 );
 
-                foreach (var brick in gameState.Bricks)
+                foreach (var brick in gameWorld.Bricks)
                 {
                     if (!brick.IsDestroyed)
                         g.FillRectangle(
@@ -77,9 +78,14 @@ namespace ConsoleApplication1
 
     internal class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
-            var state = new GameState(new Size(200, 300));
+            var state = new GameWorld(new Size(200, 300));
+
+            state.BrickDestroy += (sender, args) => { Console.WriteLine("destroyed brick"); };
+
+            state.Failure += (IChannelSender, args) => { Console.WriteLine("FAILURE"); };
+
             Application.Run(new MyForm(state));
         }
     }

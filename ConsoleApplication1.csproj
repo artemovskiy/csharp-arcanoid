@@ -45,9 +45,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="model\Ball.cs" />
     <Compile Include="model\Brick.cs" />
     <Compile Include="model\Entity.cs" />
-    <Compile Include="model\GameState.cs" />
+    <Compile Include="model\GameWorld.cs" />
     <Compile Include="model\GameStateBuilder.cs" />
     <Compile Include="model\MovingEntity.cs" />
     <Compile Include="model\Vector.cs" />

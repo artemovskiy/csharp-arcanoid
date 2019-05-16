@@ -9,11 +9,34 @@ namespace ConsoleApplication1.model
         Right = 1
     }
 
-    public class GameState
+    public class BrickDestroyEventArgs
+    {
+        private Brick brick;
+
+        public Brick Brick
+        {
+            get { return brick; }
+        }
+
+        public BrickDestroyEventArgs(Brick brick)
+        {
+            this.brick = brick;
+        }
+    }
+
+    public delegate void BrickDestroyEventHandler(object sender, BrickDestroyEventArgs args);
+
+    public class FailureEventArgs
+    {
+    }
+
+    public delegate void FailureEventHandler(object sender, FailureEventArgs args);
+
+    public class GameWorld
     {
         public Size FieldSize { get; set; }
 
-        public MovingEntity Ball { get; set; }
+        public Ball Ball { get; set; }
 
         public Entity Paddle { get; set; }
 
@@ -25,7 +48,11 @@ namespace ConsoleApplication1.model
 
         public HashSet<Brick> Bricks { get; set; }
 
-        public GameState(Size size)
+        public event BrickDestroyEventHandler BrickDestroy;
+
+        public event FailureEventHandler Failure;
+
+        public GameWorld(Size size)
         {
             FieldSize = size;
             Initialize();
@@ -59,7 +86,7 @@ namespace ConsoleApplication1.model
 
         private void InitializeBall()
         {
-            Ball = new MovingEntity(
+            Ball = new Ball(
                 new Point(FieldSize.Width / 2, FieldSize.Height / 2),
                 new Size(20, 20),
                 new Vector()
@@ -101,24 +128,45 @@ namespace ConsoleApplication1.model
                 {
                     flag = true;
                     brick.IsDestroyed = true;
-                    OnBounceBrick(brick);
+                    OnBrickDestroy(brick);
                 }
             }
 
             if (flag)
             {
                 Ball.Speed.InvertY();
+                return;
             }
 
             if (Ball.Touches(LeftWall) || Ball.Touches(RightWall))
+            {
                 Ball.Speed.InvertX();
+                return;
+            }
 
             if (Ball.Touches(Paddle) || Ball.Touches(TopWall))
+            {
                 Ball.Speed.InvertY();
+                return;
+            }
+
+            if (!Ball.IsLost && Ball.Touches(BottomVoid))
+            {
+                Ball.IsLost = true;
+                OnFailure();
+            }
         }
 
-        private void OnBounceBrick(Brick brick)
+        protected virtual void OnBrickDestroy(Brick brick)
         {
+            if (BrickDestroy != null)
+                BrickDestroy(this, new BrickDestroyEventArgs(brick));
+        }
+
+        protected virtual void OnFailure()
+        {
+            if (Failure != null)
+                Failure(this, new FailureEventArgs());
         }
 
         public void MovePaddle(MoveDirections direction)
