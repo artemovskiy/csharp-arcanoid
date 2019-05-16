@@ -15,6 +15,7 @@ namespace ConsoleApplication1.Tests
             Assert.IsFalse(e1.Touches(e2));
             Assert.IsFalse(e2.Touches(e1));
         }
+
         [Test]
         public void TestTouchHorizontalIntersection()
         {
@@ -23,6 +24,7 @@ namespace ConsoleApplication1.Tests
             Assert.IsTrue(e1.Touches(e2));
             Assert.IsTrue(e2.Touches(e1));
         }
+
         [Test]
         public void TestTouchHorizontalTouching()
         {
@@ -31,6 +33,7 @@ namespace ConsoleApplication1.Tests
             Assert.IsTrue(e1.Touches(e2));
             Assert.IsTrue(e2.Touches(e1));
         }
+
         [Test]
         public void TestTouchVerticalIntersection()
         {
@@ -39,6 +42,7 @@ namespace ConsoleApplication1.Tests
             Assert.IsTrue(e1.Touches(e2));
             Assert.IsTrue(e2.Touches(e1));
         }
+
         [Test]
         public void TestTouchVerticalTouching()
         {
