@@ -71,24 +71,35 @@ namespace ConsoleApplication1.model
             );
         }
 
-        public void BuildBricks()
+        private Size GetBrickSize()
+        {
+            return new Size(30, WALL_WIDTH);
+        }
+
+        private int GetBricksInRowCount()
+        {
+            return world.Field.Size.Width / GetBrickSize().Width;
+        }
+
+        public void BuildBricks(int layersCount)
         {
             world.Bricks = new HashSet<Brick>();
-            /*
-             * Bricks = new HashSet<Brick>();
-            var BrickSize = new Size(28, 8);
-            for (int y = 12; y < BrickSize.Height * 5; y += BrickSize.Height + 2)
+            var brickSize = GetBrickSize();
+
+            var fieldRectangle = world.Field.GetRectangle();
+
+            for (int row = 0; row < layersCount; row++)
             {
-                for (int x = 12; x < FieldSize.Width - BrickSize.Width; x += BrickSize.Width + 2)
+                for (int column = 0; column < GetBricksInRowCount(); column++)
                 {
-                    var brick = new Brick(
-                        new Point(x + BrickSize.Width / 2 - 1, y + BrickSize.Height / 2 - 1),
-                        BrickSize
+                    var brickPosition = new Point(
+                        fieldRectangle.Left + brickSize.Width * column + brickSize.Width / 2,
+                        fieldRectangle.Top + brickSize.Height * row + brickSize.Height / 2
                     );
-                    Bricks.Add(brick);
+                    var brick = new Brick(brickPosition, brickSize);
+                    world.Bricks.Add(brick);
                 }
             }
-             */
         }
 
         public void BuildPaddle()

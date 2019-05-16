@@ -13,7 +13,7 @@ namespace ConsoleApplication1
         {
             DoubleBuffered = true;
 
-            Size = new Size(240, 400);
+            Size = new Size(250, 400);
 
             var timer = new Timer();
             timer.Interval = 50;
@@ -69,7 +69,10 @@ namespace ConsoleApplication1
                     if (!brick.IsDestroyed)
                         g.FillRectangle(
                             Brushes.Yellow,
-                            brick.GetRectangle()
+                            brick.GetRectangle().Left + 1,
+                            brick.GetRectangle().Top + 1,
+                            brick.Size.Width - 1,
+                            brick.Size.Height - 1
                         );
                 }
             };
@@ -81,11 +84,11 @@ namespace ConsoleApplication1
         public static void Main()
         {
             var builder = new GameWorldBuilder();
-            builder.BuildField(new Size(200, 300));
+            builder.BuildField(new Size(210, 300));
             builder.BuildWalls();
             builder.BuildVoid();
             builder.BuildBall();
-            builder.BuildBricks();
+            builder.BuildBricks(3);
             builder.BuildPaddle();
             
             var state = builder.GetResult();
