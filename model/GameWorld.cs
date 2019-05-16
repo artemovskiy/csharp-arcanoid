@@ -52,68 +52,6 @@ namespace ConsoleApplication1.model
 
         public event FailureEventHandler Failure;
 
-        public GameWorld(Size size)
-        {
-            FieldSize = size;
-            Initialize();
-        }
-
-        private void Initialize()
-        {
-            InitializeWalls();
-
-            BottomVoid = new Entity(new Point(FieldSize.Width / 2, FieldSize.Height - 5),
-                new Size(FieldSize.Width - 20, 10));
-
-            InitializeBall();
-
-            InitializeBricks();
-
-            Paddle = new Entity(
-                new Point(FieldSize.Width / 2, FieldSize.Height - 25),
-                new Size(30, 10)
-            );
-        }
-
-        private void InitializeWalls()
-        {
-            var sideWallsSize = new Size(10, FieldSize.Height);
-            LeftWall = new Entity(new Point(5, FieldSize.Height / 2), sideWallsSize);
-            RightWall = new Entity(new Point(FieldSize.Width - 5, FieldSize.Height / 2), sideWallsSize);
-
-            TopWall = new Entity(new Point(FieldSize.Width / 2, 5), new Size(FieldSize.Width - 20, 10));
-        }
-
-        private void InitializeBall()
-        {
-            Ball = new Ball(
-                new Point(FieldSize.Width / 2, FieldSize.Height / 2),
-                new Size(20, 20),
-                new Vector()
-                {
-                    Y = 10,
-                    X = 1
-                }
-            );
-        }
-
-        private void InitializeBricks()
-        {
-            Bricks = new HashSet<Brick>();
-            var BrickSize = new Size(28, 8);
-            for (int y = 12; y < BrickSize.Height * 5; y += BrickSize.Height + 2)
-            {
-                for (int x = 12; x < FieldSize.Width - BrickSize.Width; x += BrickSize.Width + 2)
-                {
-                    var brick = new Brick(
-                        new Point(x + BrickSize.Width / 2 - 1, y + BrickSize.Height / 2 - 1),
-                        BrickSize
-                    );
-                    Bricks.Add(brick);
-                }
-            }
-        }
-
         public void OnTick()
         {
             Ball.Position = new Point(

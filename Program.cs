@@ -80,7 +80,15 @@ namespace ConsoleApplication1
     {
         public static void Main()
         {
-            var state = new GameWorld(new Size(200, 300));
+            var builder = new GameWorldBuilder();
+            builder.BuildField(new Size(200, 300));
+            builder.BuildWalls();
+            builder.BuildVoid();
+            builder.BuildBall();
+            builder.BuildBricks();
+            builder.BuildPaddle();
+            
+            var state = builder.GetResult();
 
             state.BrickDestroy += (sender, args) => { Console.WriteLine("destroyed brick"); };
 

@@ -50,6 +50,7 @@
     <Compile Include="model\Entity.cs" />
     <Compile Include="model\GameWorld.cs" />
     <Compile Include="model\GameStateBuilder.cs" />
+    <Compile Include="model\GameWorldBuilder.cs" />
     <Compile Include="model\MovingEntity.cs" />
     <Compile Include="model\Vector.cs" />
     <Compile Include="Program.cs" />
