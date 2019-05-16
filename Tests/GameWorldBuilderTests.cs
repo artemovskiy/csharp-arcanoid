@@ -94,7 +94,7 @@ namespace ConsoleApplication1.Tests
             builder.BuildBricks(2);
             var world = builder.GetResult();
 
-            var expected = new HashSet<Brick>()
+            var expected = new List<Brick>()
             {
                 new Brick(new Point(25, 15), new Size(30, 10)),
                 new Brick(new Point(25, 25), new Size(30, 10)),
@@ -110,7 +110,7 @@ namespace ConsoleApplication1.Tests
             builder.BuildBricks(2);
             var world = builder.GetResult();
 
-            var expected = new HashSet<Brick>()
+            var expected = new List<Brick>()
             {
                 new Brick(new Point(25, 15), new Size(30, 10)),
                 new Brick(new Point(55, 15), new Size(30, 10)),
@@ -128,7 +128,7 @@ namespace ConsoleApplication1.Tests
             builder.BuildBricks(2);
             var world = builder.GetResult();
 
-            var expected = new HashSet<Brick>()
+            var expected = new List<Brick>()
             {
                 new Brick(new Point(25, 15), new Size(30, 10)),
                 new Brick(new Point(55, 15), new Size(30, 10)),

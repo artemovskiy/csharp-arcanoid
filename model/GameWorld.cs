@@ -47,11 +47,16 @@ namespace ConsoleApplication1.model
 
         public Entity BottomVoid { get; set; }
 
-        public HashSet<Brick> Bricks { get; set; }
+        public List<Brick> Bricks { get; set; }
 
         public event BrickDestroyEventHandler BrickDestroy;
 
         public event FailureEventHandler Failure;
+
+        public GameWorld()
+        {
+            Bricks = new List<Brick>();
+        }
 
         public void Tick()
         {

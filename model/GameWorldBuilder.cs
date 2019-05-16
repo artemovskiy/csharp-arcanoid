@@ -83,7 +83,6 @@ namespace ConsoleApplication1.model
 
         public void BuildBricks(int layersCount)
         {
-            world.Bricks = new HashSet<Brick>();
             var brickSize = GetBrickSize();
 
             var fieldRectangle = world.Field.GetRectangle();

@@ -20,7 +20,7 @@ namespace ConsoleApplication1.Tests
             world.RightWall = new Entity(new Point(35, 30), new Size(10, 60));
             world.Ball = new Ball(new Point(20, 35), new Size(10, 10));
             world.Paddle = new Entity(new Point(20, 49), new Size(10, 2));
-            world.Bricks = new HashSet<Brick>() {new Brick(new Point(20, 15), new Size(20, 10))};
+            world.Bricks = new List<Brick>() {new Brick(new Point(20, 15), new Size(20, 10))};
             return world;
         }
 
@@ -85,7 +85,7 @@ namespace ConsoleApplication1.Tests
         public void TestBallBouncesFromTopWall()
         {
             var world = GetTestingWorld();
-            world.Bricks = new HashSet<Brick>();
+            world.Bricks = new List<Brick>();
             world.Ball.Speed.Y = -5;
             world.Ball.Position = new Point(20, 20);
             world.Tick();
