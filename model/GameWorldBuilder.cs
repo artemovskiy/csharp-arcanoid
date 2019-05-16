@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 
+using ConsoleApplication1.model.entities;
+
 namespace ConsoleApplication1.model
 {
     public class GameWorldBuilder
@@ -28,7 +30,7 @@ namespace ConsoleApplication1.model
                 sideWallsSize
             );
             world.RightWall = new Entity(
-                new Point(world.FieldSize.Width + WALL_WIDTH / 2, sideWallsSize.Height / 2),
+                new Point(world.FieldSize.Width + WALL_WIDTH + WALL_WIDTH / 2, sideWallsSize.Height / 2),
                 sideWallsSize
             );
 

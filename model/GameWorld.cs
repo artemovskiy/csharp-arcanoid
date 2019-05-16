@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Drawing;
+using ConsoleApplication1.model.entities;
 
 namespace ConsoleApplication1.model
 {

@@ -1,6 +1,6 @@
 using System.Drawing;
 
-namespace ConsoleApplication1.model
+namespace ConsoleApplication1.model.entities
 {
     public class Ball : MovingEntity
     {
