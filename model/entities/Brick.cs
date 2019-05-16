@@ -11,5 +11,12 @@ namespace ConsoleApplication1.model.entities
         {
             IsDestroyed = false;
         }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var brickObj = (Brick) obj;
+            return brickObj.IsDestroyed == IsDestroyed && base.Equals(obj);
+        }
     }
 }

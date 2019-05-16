@@ -11,5 +11,12 @@ namespace ConsoleApplication1.model.entities
         {
             IsLost = false;
         }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var ballObj = (Ball) obj;
+            return ballObj.IsLost == IsLost && base.Equals(obj);
+        }
     }
 }

@@ -73,5 +73,12 @@ namespace ConsoleApplication1.model
         {
             return string.Format("Position: {0}\r\n Size: {1}", Position, Size);
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var entityObj = (Entity) obj;
+            return entityObj.Position.Equals(Position) && entityObj.Size.Equals(Size);
+        }
     }
 }

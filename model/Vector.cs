@@ -15,5 +15,12 @@ namespace ConsoleApplication1.model
         {
             Y *= -1;
         }
+        
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var vectorObj = (Vector) obj;
+            return vectorObj.X == X && vectorObj.Y == Y;
+        }
     }
 }

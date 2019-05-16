@@ -16,5 +16,12 @@ namespace ConsoleApplication1.model
             get { return speed; }
             set { speed = value; }
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null) return false;
+            var entityObj = (MovingEntity) obj;
+            return entityObj.Speed.Equals(Speed) && base.Equals(obj);
+        }
     }
 }
